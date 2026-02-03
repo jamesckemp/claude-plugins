@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE/Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
+*.log
+
+# WordPress specific
+*.sql
+*.sql.gz
+wp-config-local.php
+
+# Package manager locks (optional - may want to keep)
+# package-lock.json
+# composer.lock
+
+# Plugin user configs (contain personal info)
+**/config/user-config.json

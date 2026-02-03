@@ -1,0 +1,13 @@
+{
+  "name": "cowork-plugins",
+  "owner": {
+    "name": "James Kemp"
+  },
+  "plugins": [
+    {
+      "name": "pings-triage",
+      "source": "./pings-triage",
+      "description": "Intelligent notification triage system that collects, deduplicates, and organizes pings from Slack, P2, and Figma. Analyzes urgency and suggests actions while preventing duplicate Linear issues for threaded conversations."
+    }
+  ]
+}
