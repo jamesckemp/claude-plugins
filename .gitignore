@@ -2,6 +2,7 @@
 node_modules/
 vendor/
 cowork-plugin-management/
+tmp/
 
 # Environment files
 .env
