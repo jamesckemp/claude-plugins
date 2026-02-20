@@ -89,7 +89,7 @@ Before committing plugin changes:
 When adding a new plugin:
 
 - [ ] Created `.claude-plugin/plugin.json` with name, version, description, author
-- [ ] Registered in `.claude-plugin/marketplace.json` (add to `plugins` array with name and path)
+- [ ] Registered in `.claude-plugin/marketplace.json` (add to `plugins` array with `name` and `source: "./plugin-dir"`)
 - [ ] Listed in CLAUDE.md under "Current Plugins" with version and description
 
 ---

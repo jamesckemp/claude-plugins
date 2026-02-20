@@ -4,9 +4,25 @@ Custom plugins for [Claude Cowork](https://claude.ai/cowork) - Anthropic's deskt
 
 ## Plugins
 
-Plugins will be listed here as they're added.
+- **linear-issue-importer** - Extract issues from documents and import them into Linear
+- **voiceprint** - Build a voice profile from your writing and generate a personalized writer skill
 
 ## Installation
+
+### With Claude Code CLI
+
+```bash
+claude plugin add --marketplace github:jamesckemp/cowork-plugins
+```
+
+Then install individual plugins:
+
+```bash
+claude plugin install linear-issue-importer
+claude plugin install voiceprint
+```
+
+### With Claude Cowork (Desktop App)
 
 1. In Claude Cowork, click the **+** button in the Plugins panel
 2. Select **Browse plugins**

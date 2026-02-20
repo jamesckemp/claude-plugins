@@ -6,11 +6,11 @@
   "plugins": [
     {
       "name": "linear-issue-importer",
-      "path": "./linear-issue-importer"
+      "source": "./linear-issue-importer"
     },
     {
       "name": "voiceprint",
-      "path": "./voiceprint"
+      "source": "./voiceprint"
     }
   ]
 }
