@@ -1,0 +1,31 @@
+# Voiceprint
+
+Build a comprehensive voice profile from your actual writing, then generate a personalized writer skill that produces content in your authentic voice.
+
+## How It Works
+
+Most "write in my voice" instructions are shallow. Voiceprint goes deeper by collecting real writing samples across different emotional registers, then cross-referencing with your stated preferences.
+
+The process takes ~12 minutes:
+
+1. **Writing samples** (5 prompts) - Write naturally in response to casual, explanatory, enthusiastic, frustrated, and persuasive prompts
+2. **Style preferences** (8 questions) - Multiple-choice calibration of sentence structure, punctuation, rhythm, transitions, and more
+3. **Pattern rejection** (4 questions) - Identify AI writing patterns you want to avoid
+4. **Analysis & generation** - A sub-agent analyzes your samples and generates output files
+
+## Output
+
+Two files are generated in your working directory:
+
+- **`{name}-voiceprint.md`** - Detailed voice analysis with metrics, patterns, and a quick reference card
+- **`{name}-writer/SKILL.md`** - A ready-to-use writer skill with your voice profile baked in, including a red flags checklist and content type templates
+
+## Usage
+
+```
+/voiceprint
+```
+
+## Grounded in Research
+
+The approach is based on stylometry research: function word frequencies, sentence length burstiness, punctuation habits, and transition patterns are the strongest discriminators of individual writing style. Writing samples are collected first (before preference questions) because observed patterns outperform self-reported preferences.

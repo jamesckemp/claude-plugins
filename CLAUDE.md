@@ -16,7 +16,8 @@ This repo contains personal/custom plugins that aren't published to the official
 
 ### Current Plugins
 
-No plugins currently installed. Plugins will be listed here as they're added.
+- **linear-issue-importer** (`v1.0.0`) - Extract issues from documents and import them into Linear
+- **voiceprint** (`v1.0.0`) - Extract a linguistic fingerprint and generate a personalized voice profile and writer skill
 
 ## Plugin Structure
 
@@ -82,6 +83,14 @@ Before committing plugin changes:
 - [ ] Updated version in `.claude-plugin/plugin.json`
 - [ ] Both versions match
 - [ ] Version follows semver based on change type
+
+### New Plugin Checklist
+
+When adding a new plugin:
+
+- [ ] Created `.claude-plugin/plugin.json` with name, version, description, author
+- [ ] Registered in `.claude-plugin/marketplace.json` (add to `plugins` array with name and path)
+- [ ] Listed in CLAUDE.md under "Current Plugins" with version and description
 
 ---
 

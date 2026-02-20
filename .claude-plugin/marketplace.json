@@ -3,5 +3,14 @@
   "owner": {
     "name": "James Kemp"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "linear-issue-importer",
+      "path": "./linear-issue-importer"
+    },
+    {
+      "name": "voiceprint",
+      "path": "./voiceprint"
+    }
+  ]
 }
