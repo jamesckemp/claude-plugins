@@ -1,6 +1,7 @@
 ---
 name: voiceprint
 description: Build a voice profile from your writing samples and generate a personalized writer skill
+argument-hint: "[path/to/writer-skill] — omit to create new, provide path to refine existing"
 ---
 
 # /voiceprint
