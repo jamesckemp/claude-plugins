@@ -1,10 +1,10 @@
-# Cowork Plugins Repository
+# Claude Plugins Repository
 
-Custom plugins for Claude Cowork - Anthropic's desktop application for agentic coding with Claude.
+Custom plugins for Claude Code - Anthropic's agentic coding tool.
 
-## About Claude Cowork
+## About Claude Code
 
-Cowork is Anthropic's desktop app that provides a persistent workspace for Claude to help with coding tasks. Plugins extend Cowork's capabilities with custom skills, commands, and workflows.
+Claude Code is Anthropic's CLI tool for agentic coding with Claude. Plugins extend Claude Code's capabilities with custom skills, commands, and workflows.
 
 **Documentation:**
 - [Claude Code Plugins Guide](https://docs.anthropic.com/en/docs/claude-code/plugins)
@@ -16,8 +16,8 @@ This repo contains personal/custom plugins that aren't published to the official
 
 ### Current Plugins
 
-- **linear-issue-importer** (`v1.1.0`) - Extract issues from documents and import them into Linear
-- **voiceprint** (`v1.5.0`) - Extract a linguistic fingerprint and generate a personalized voice profile and writer skill
+- **linear-issue-importer** (`v1.2.1`) - Extract issues from documents and import them into Linear
+- **voiceprint** (`v1.5.1`) - Extract a linguistic fingerprint and generate a personalized voice profile and writer skill
 
 ## Plugin Structure
 
@@ -27,7 +27,7 @@ Each plugin follows this structure:
 {plugin-name}/
 ├── plugin.json              # Plugin manifest (name, version, description)
 ├── .claude-plugin/
-│   └── plugin.json          # Cowork plugin metadata (must match version)
+│   └── plugin.json          # Claude Code plugin metadata (must match version)
 ├── commands/                # Slash commands (/command-name)
 │   └── {command}.md
 ├── skills/                  # Skills that commands invoke
@@ -56,7 +56,7 @@ skill: my-skill
 
 ## Versioning Requirements
 
-**Every plugin update must include a version bump.** Claude Cowork uses the version number in `plugin.json` to detect updates. If you don't increment the version, users won't see the update.
+**Every plugin update must include a version bump.** Claude Code uses the version number in `plugin.json` to detect updates. If you don't increment the version, users won't see the update.
 
 ### Semantic Versioning (SemVer)
 
@@ -73,7 +73,7 @@ Use `MAJOR.MINOR.PATCH` format:
 Each plugin has two version locations that **must stay in sync**:
 
 1. `{plugin}/plugin.json` - Main plugin manifest
-2. `{plugin}/.claude-plugin/plugin.json` - Cowork plugin metadata
+2. `{plugin}/.claude-plugin/plugin.json` - Claude Code plugin metadata
 
 ### Commit Checklist
 
