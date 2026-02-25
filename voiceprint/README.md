@@ -15,10 +15,10 @@ The process takes ~12 minutes:
 
 ## Output
 
-Two files are generated in your working directory:
+A writer skill directory is generated in your chosen output location:
 
-- **`{name}-voiceprint.md`** - Detailed voice analysis with metrics, patterns, and a quick reference card
 - **`{name}-writer/SKILL.md`** - A ready-to-use writer skill with your voice profile baked in, including a red flags checklist and content type templates
+- **`{name}-writer/voice-profile.md`** - Your complete voice analysis with metrics, patterns, and a quick reference card
 
 ## Usage
 

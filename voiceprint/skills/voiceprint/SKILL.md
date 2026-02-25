@@ -61,15 +61,15 @@ Introduce the process to the user. Keep it brief and warm.
 > 2. **Style preferences** - Quick multiple-choice questions about how you like to write.
 > 3. **Pattern rejection** - I'll show you some common AI writing patterns so you can tell me which ones to avoid.
 >
-> At the end, you'll get two files: a voice profile document and a ready-to-use writer skill.
+> At the end, you'll get a ready-to-use writer skill with your voice profile bundled in.
 
 Then ask:
 
-Use `AskUserQuestion` to confirm:
-- **Question**: "Before we start, what name would you like for your voice profile? This will be used for the output files."
-- **Options**: "Use my name" (with description: "I'll use a default like 'my-voice'"), "Let me specify" (with description: "I'll type a custom name")
+Ask the user directly (not with `AskUserQuestion` — this needs free text input):
 
-Store the chosen name as `PROFILE_NAME` for use in output file naming.
+> **Before we start, what name would you like for your voice profile?** This gets used in file names and the skill title. First name or a short handle works great (e.g., "james", "jk-voice").
+
+Store their response as `PROFILE_NAME` for use in output file naming. If the user gives a name with spaces, convert to lowercase kebab-case (e.g., "James Kemp" → "james-kemp").
 
 Also ask about primary use cases:
 
@@ -418,7 +418,7 @@ These synthesized exemplars go in the Platform Formats section of the writer ski
 
 **Step 4: Generate Voice Profile**
 
-Use the template at `assets/voice-profile-template.md` as a structural guide. Replace all `{{PLACEHOLDER}}` values with analyzed data. Write the completed profile to: `{OUTPUT_DIR}/{PROFILE_NAME}-voiceprint.md`
+Use the template at `assets/voice-profile-template.md` as a structural guide. Replace all `{{PLACEHOLDER}}` values with analyzed data. Do NOT write a standalone voiceprint file — the voice profile will be bundled directly into the writer skill directory in Step 5.
 
 Include: quantitative metrics from Step 1, cross-reference notes from Step 2, full rejection list from Step 3, the selected exemplars from Step 3.5, the quick reference card summary table, and 3 sample transformations showing generic AI writing vs this user's voice (cover different content types: a generic opener, a formal explanation, and a social/short-form post).
 
@@ -426,7 +426,7 @@ Include: quantitative metrics from Step 1, cross-reference notes from Step 2, fu
 
 Use the template at `assets/writer-skill-template.md` as a structural guide. Create the directory `{OUTPUT_DIR}/{PROFILE_NAME}-writer/` containing:
 - `SKILL.md` - The complete writer skill with all `{{PLACEHOLDER}}` values filled in
-- `voice-profile.md` - A copy of the voice profile
+- `voice-profile.md` - The complete voice profile from Step 4
 
 The writer skill must:
 - Start with the Core Instruction section including execute mode guidance
@@ -444,7 +444,6 @@ The writer skill must:
 ### After the Sub-Agent Completes
 
 The sub-agent will write the output files directly. Verify they were created:
-- `{OUTPUT_DIR}/{PROFILE_NAME}-voiceprint.md` should exist
 - `{OUTPUT_DIR}/{PROFILE_NAME}-writer/SKILL.md` should exist
 - `{OUTPUT_DIR}/{PROFILE_NAME}-writer/voice-profile.md` should exist
 
@@ -505,9 +504,8 @@ Once the user confirms satisfaction with all test pieces (or says they're good e
 
 > Your voice profile is ready. Here's what was created:
 >
-> 1. **`{OUTPUT_DIR}/{PROFILE_NAME}-voiceprint.md`** - Your complete voice analysis with writing exemplars
-> 2. **`{OUTPUT_DIR}/{PROFILE_NAME}-writer/SKILL.md`** - A writer skill you can use in any Claude session
-> 3. **`{OUTPUT_DIR}/{PROFILE_NAME}-writer/voice-profile.md`** - Voice profile bundled with the skill
+> 1. **`{OUTPUT_DIR}/{PROFILE_NAME}-writer/SKILL.md`** - A writer skill you can use in any Claude session
+> 2. **`{OUTPUT_DIR}/{PROFILE_NAME}-writer/voice-profile.md`** - Your complete voice analysis (referenced by the skill)
 >
 > To use the writer skill, add `{OUTPUT_DIR}/{PROFILE_NAME}-writer/` as a skill directory in your Claude Code project, or reference the SKILL.md directly when asking Claude to write something.
 >
