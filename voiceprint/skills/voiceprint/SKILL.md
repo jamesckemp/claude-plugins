@@ -2,7 +2,7 @@
 description: >
   Extract a comprehensive linguistic fingerprint through interactive sampling and analysis,
   then generate a personalized writer skill that any AI tool can use to write in the user's
-  authentic voice. Takes ~12 minutes through a guided questionnaire of writing samples,
+  authentic voice. Takes ~15 minutes through a guided questionnaire of writing samples,
   style preferences, and pattern rejection.
 user-invocable: false
 ---
@@ -10,6 +10,10 @@ user-invocable: false
 # Voiceprint - Voice Profiling Skill
 
 Create a personalized voice profile and writer skill by analyzing how you actually write, not just how you describe your writing.
+
+## Mode Check
+
+If plan mode is active, exit it now using ExitPlanMode before starting this workflow. All voiceprint commands run in execute mode.
 
 ## Why Writing Samples First
 
@@ -19,15 +23,25 @@ Most "voice" instructions are shallow ("write casually", "be professional"). Res
 
 ```
 Phase 1: Introduction & Setup        (~1 min)  → Explain process, confirm readiness
-Phase 2: Writing Samples              (~6 min)  → 5 open-ended writing prompts
+Phase 2: Writing Samples              (~6 min)  → 5 open-ended writing prompts + adaptive follow-ups
 Phase 3: Style Preferences            (~4 min)  → 7-8 multiple-choice calibration questions
 Phase 4: Pattern Rejection            (~2 min)  → 3-4 questions on AI patterns to avoid
 Phase 4.5: Data Extraction            (auto)    → Compile structured dataset from all responses
 Phase 5: Analysis & Generation        (~1 min)  → Sub-agent analyzes + generates output files
-Phase 6: Validation & Refinement      (~1 min)  → Test output, offer adjustments
+Phase 6: Validate & Calibrate         (~3 min)  → Iterative testing across use cases
 ```
 
 Total: ~15 minutes for a comprehensive voice profile.
+
+## Isolation Rule
+
+Work ONLY with data collected through this questionnaire. Do NOT:
+- Search for other writing samples on the user's machine
+- Read other skills, profiles, or configuration files
+- Look for tweets, blog posts, documents, or archives
+- Reference any external material not collected in this session
+
+Everything needed to build the voice profile comes from the user's responses to the prompts below.
 
 ### Why Sub-Agents for Phase 5
 
@@ -41,9 +55,9 @@ Introduce the process to the user. Keep it brief and warm.
 
 **Say something like:**
 
-> I'm going to build a detailed profile of your writing voice. This takes about 12 minutes and works in three parts:
+> I'm going to build a detailed profile of your writing voice. This takes about 15 minutes and works in three parts:
 >
-> 1. **Writing samples** - I'll give you 5 short prompts. Just write naturally, a few sentences each. There are no wrong answers.
+> 1. **Writing samples** - I'll give you 5-7 short prompts. Just write naturally, a few sentences each. There are no wrong answers.
 > 2. **Style preferences** - Quick multiple-choice questions about how you like to write.
 > 3. **Pattern rejection** - I'll show you some common AI writing patterns so you can tell me which ones to avoid.
 >
@@ -108,11 +122,25 @@ Present each prompt as a conversational message. Do NOT use `AskUserQuestion` fo
 
 **What this captures**: Argument structure, conviction markers ("I think" vs "clearly"), counterargument handling, rhetorical devices, confidence signaling.
 
-### After All Samples
+### Adaptive Follow-Up
 
-Acknowledge the user's effort briefly:
+After collecting all 5 writing samples, assess the variety before moving on:
 
-> Great, those samples give me a lot to work with. Now for some quick multiple-choice questions about your style preferences.
+**Evaluate the samples for stylistic range:**
+- Length: Do samples vary in length, or are they all similar (e.g., all 3-4 sentences)?
+- Tone: Is there a range from casual to intense, or do they cluster in one register?
+- Structure: Do the samples show different sentence patterns, or are they structurally uniform?
+
+**If a gap is detected**, ask 1-2 additional targeted prompts to fill it:
+
+- **Short-form gap** (all samples are 4+ sentences): "All your samples have some depth to them. Can you write something really short? Like a quick message, a social post, or a one-liner reaction to something."
+- **Emotional range gap** (all samples are measured/calm): "Your writing is very composed across all samples. Can you write something where you're really fired up about something? Doesn't have to be negative — just passionate."
+- **Formal range gap** (all samples are casual): "Your samples are nicely informal. Can you write something in a slightly more professional register? Like a paragraph from a work document or a message to someone senior."
+- **Casual range gap** (all samples are formal): "These are polished. Can you write something truly casual? Like a text to a friend or a quick Slack message."
+
+**If variety is sufficient**, acknowledge it and move on:
+
+> Great, those samples give me a lot to work with — good range across different contexts. Now for some quick multiple-choice questions about your style preferences.
 
 ---
 
@@ -262,6 +290,9 @@ Create a structured summary by extracting from the conversation. Do NOT pass the
 ### Sample 6: Closing/Motivation
 {exact text of user's response to Prompt 17}
 
+### Adaptive Follow-Up Samples (if collected)
+{exact text of any additional samples from the adaptive questioning step, with context labels}
+
 ## Style Preferences (Phase 3 Answers)
 
 - Q6 Sentence structure: {selected option}
@@ -282,6 +313,15 @@ Create a structured summary by extracting from the conversation. Do NOT pass the
 
 ## Skipped Questions
 {list any questions the user skipped, or "None"}
+
+## Exemplar Candidates
+
+Selection guidance for the sub-agent:
+- Prefer samples under 100 words for short-form exemplars
+- Prefer samples that cover different registers (casual, professional, emotional, opinionated)
+- If a sample is over 100 words, extract the most distinctive passage
+- Categorize into: short-form (2-3), medium-form (2), opinionated (1)
+- All 6+ samples should be represented — every sample contains voice signal
 ```
 
 **Important**: Copy writing samples verbatim. Do not summarize, clean up, or paraphrase them - the sub-agent needs the raw text for accurate analysis.
@@ -310,6 +350,8 @@ Pass the following prompt to the Task tool, with the handoff document from Phase
 
 You are generating a voice profile and writer skill from collected writing samples and preferences. Your job is to analyze the data, then write two output files.
 
+IMPORTANT: Work ONLY with the handoff data provided below. Do NOT search for, read, or reference any other files on the user's machine. All analysis must come from the writing samples and preferences in this document. The only files you should read are the three reference/template files listed below.
+
 **HANDOFF DATA:**
 
 {INSERT THE STRUCTURED HANDOFF DOCUMENT FROM PHASE 4.5 HERE}
@@ -327,7 +369,7 @@ Where `{SKILL_DIR}` is the directory containing this skill (the voiceprint plugi
 
 **Step 1: Analyze Writing Samples**
 
-From the 6 writing samples, extract:
+From the writing samples (6 or more), extract:
 
 1. **Sentence metrics**: Average sentence length (words), sentence length variance (standard deviation), min/max sentence length, burstiness score (ratio of variance to mean)
 2. **Vocabulary patterns**: Most-used function words (and, but, so, just, actually, really, etc.), jargon/technical vocabulary frequency, vocabulary richness (unique words / total words), contraction usage rate
@@ -343,11 +385,32 @@ Compare observed patterns in writing samples against stated preferences. Where t
 
 From Pattern Rejections data, compile: explicitly rejected phrases, rejected structural patterns, and full category expansions from `ai-tells.md` (e.g., if they rejected "In today's fast-paced world", also flag all similar generic openers from that category).
 
+**Step 3.5: Select Voice Exemplars**
+
+From the writing samples, select 5-6 best exemplars and categorize them:
+
+- **Short-form** (2-3 samples): Samples under ~75 words that show natural rhythm. Pick from different registers (casual, enthusiastic, frustrated).
+- **Medium-form** (2 samples): Longer samples that show explanation or narrative skill. Pick the explanatory and closing/motivation samples if they're strong.
+- **Opinionated** (1 sample): The persuasive/take sample, or whichever sample shows the strongest voice.
+
+If a sample is over 100 words, extract the most distinctive passage (the part that sounds most like "them"). Keep enough context for the passage to stand alone.
+
+Use the raw text — do not clean up grammar, punctuation, or phrasing. The whole point is authenticity.
+
+**Step 3.6: Synthesize Format Exemplars**
+
+Create synthesized examples of the user's voice applied to specific formats. These are NOT copied from external sources — they are generated from your analysis:
+
+- **Tweet exemplar**: Write one sample tweet/social post (~50-100 words) in the user's voice about a topic relevant to their stated use cases. Match their rhythm, vocabulary, punctuation habits, and conviction level exactly.
+- **Blog exemplar**: Write one sample paragraph (3-5 sentences) in the user's voice. Match all analyzed patterns. This should sound like something they'd actually publish.
+
+These synthesized exemplars go in the Platform Formats section of the writer skill.
+
 **Step 4: Generate Voice Profile**
 
 Use the template at `assets/voice-profile-template.md` as a structural guide. Replace all `{{PLACEHOLDER}}` values with analyzed data. Write the completed profile to: `{CWD}/{PROFILE_NAME}-voiceprint.md`
 
-Include: quantitative metrics from Step 1, cross-reference notes from Step 2, full rejection list from Step 3, a quick reference card summary table, and a sample transformation showing generic AI writing vs this user's voice.
+Include: quantitative metrics from Step 1, cross-reference notes from Step 2, full rejection list from Step 3, the selected exemplars from Step 3.5, the quick reference card summary table, and 3 sample transformations showing generic AI writing vs this user's voice (cover different content types: a generic opener, a formal explanation, and a social/short-form post).
 
 **Step 5: Generate Writer Skill**
 
@@ -355,7 +418,14 @@ Use the template at `assets/writer-skill-template.md` as a structural guide. Cre
 - `SKILL.md` - The complete writer skill with all `{{PLACEHOLDER}}` values filled in
 - `voice-profile.md` - A copy of the voice profile
 
-The writer skill must: reference the voice profile for all style decisions, include content type templates weighted toward the stated use cases, have a pre-delivery checklist that checks against all forbidden patterns, and include the full rejection list.
+The writer skill must:
+- Start with the Core Instruction section including execute mode guidance
+- Include Voice Exemplars filled with the selected samples from Step 3.5
+- Include Voice Markers with Signature Moves (3-5 most distinctive patterns), Natural Expressions, Structural Preferences, and Rhythm guidance
+- Include Platform Formats with synthesized exemplars from Step 3.6
+- Include a compressed Avoid List (~25-30 highest-impact items as flat bullets)
+- Include Internal Checks in prose format (no checkboxes, "silently verify" language)
+- Reference voice-profile.md for the complete forbidden patterns list
 
 **IMPORTANT**: Do not use placeholder text in the output. Every `{{PLACEHOLDER}}` from the templates must be replaced with actual analyzed values or natural-language descriptions derived from the data.
 
@@ -372,43 +442,67 @@ If any files are missing, report the issue to the user rather than attempting to
 
 ---
 
-## Phase 6: Validation & Refinement
+## Phase 6: Validate & Calibrate
 
-### Test the Voice
+### Step 1: Generate test content per use case
 
-Generate a short sample (2-3 paragraphs) using the newly created writer skill. Choose a topic relevant to the user's stated use cases.
+For each use case the user selected in Phase 1, generate one test piece using the newly created writer skill:
 
-Present it to the user:
+- **Social media** → Generate a tweet or short social post on a topic relevant to the user
+- **Blog posts & articles** → Generate a blog-style paragraph (3-5 sentences)
+- **Work communication** → Generate a short email or Slack message
+- **All of the above** → Generate one tweet AND one blog paragraph
 
-> Here's a test piece written using your new voice profile. Does this sound like you?
+Read the generated SKILL.md and voice-profile.md before writing, and follow the skill's instructions exactly.
 
-Then ask:
+### Step 2: Present and collect feedback
+
+Present each test piece one at a time:
+
+> Here's a test {content type} written using your new voice profile:
+>
+> {test content}
+>
+> Does this sound like you? What would you change?
 
 Use `AskUserQuestion`:
-- **Question**: "How close does this sample feel to your natural voice?"
+- **Question**: "How close does this feel to your natural voice?"
 - **Options**:
   - "Nailed it" (description: "This sounds like me")
   - "Close but needs tweaks" (description: "I'll tell you what to adjust")
   - "Not quite right" (description: "Let me explain what's off")
 
-### If Adjustments Needed
+### Step 3: Apply feedback
 
-Ask the user what feels off and update the voice profile and writer skill accordingly. Common adjustments:
-- Too formal / too casual
-- Missing specific speech patterns
-- Over-applying or under-applying certain features
-- Wrong level of detail
+If the user provides feedback (selected "Close but needs tweaks" or "Not quite right"):
 
-### Final Delivery
+1. Ask what specifically feels off (free text, not AskUserQuestion)
+2. Collect their specific feedback (e.g., "too formal", "I'd never say 'fascinating'", "way too long for a tweet")
+3. Apply the feedback to the generated files:
+   - Add rejected phrases to the Avoid List in SKILL.md and Forbidden Patterns in voice-profile.md
+   - Adjust voice markers, tone descriptions, or platform constraints as needed
+   - Update exemplars if the feedback reveals a better way to represent their voice
+4. Re-generate a revised version of the same content type incorporating the feedback
+5. Present the revision and ask again
 
-Present the generated files:
+### Step 4: Repeat for each use case
+
+Move to the next content type and repeat Steps 2-3. Each round of feedback improves the profile for all content types, not just the one being tested.
+
+### Step 5: Finalize
+
+Once the user confirms satisfaction with all test pieces (or says they're good enough):
 
 > Your voice profile is ready. Here's what was created:
 >
-> 1. **`{PROFILE_NAME}-voiceprint.md`** - Your complete voice analysis
+> 1. **`{PROFILE_NAME}-voiceprint.md`** - Your complete voice analysis with writing exemplars
 > 2. **`{PROFILE_NAME}-writer/SKILL.md`** - A writer skill you can use in any Claude session
+> 3. **`{PROFILE_NAME}-writer/voice-profile.md`** - Voice profile bundled with the skill
 >
 > To use the writer skill, reference it when asking Claude to write something, or install it as a skill in your Claude Code setup.
+>
+> To refine later: `/voiceprint refine {path-to-writer-dir}`
+> To update with latest features: `/voiceprint update {path-to-writer-dir}`
 
 ---
 

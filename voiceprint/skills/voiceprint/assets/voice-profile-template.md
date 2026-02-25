@@ -174,15 +174,67 @@
 
 ---
 
-## Sample Transformation
+## Writing Exemplars
 
-### Generic AI Version
-{{AI_SAMPLE}}
+Canonical writing samples collected during profiling. These are the source of truth for this voice.
+
+### Short-Form Samples
+
+**Casual/Natural:**
+{{EXEMPLAR_SHORT_1}}
+
+**Enthusiastic:**
+{{EXEMPLAR_SHORT_2}}
+
+**Frustrated:**
+{{EXEMPLAR_SHORT_3}}
+
+### Medium-Form Samples
+
+**Explanatory:**
+{{EXEMPLAR_MEDIUM_1}}
+
+**Motivational/Closing:**
+{{EXEMPLAR_MEDIUM_2}}
+
+### Opinionated
+
+**Persuasive/Take:**
+{{EXEMPLAR_OPINION_1}}
+
+---
+
+## Sample Transformations
+
+### Transformation 1: Generic opener → This voice
+
+**Generic AI Version:**
+{{AI_SAMPLE_1}}
 <!-- Example: "In today's rapidly evolving tech landscape, effective team communication is more crucial than ever. It's worth noting that the tools we leverage can make or break our collaborative efforts. Let's dive into three key strategies that can transform how your team communicates." -->
 
-### This Voice
-{{VOICE_SAMPLE}}
+**This Voice:**
+{{VOICE_SAMPLE_1}}
 <!-- Example: "Most teams are bad at communicating and they know it. The fix isn't another tool - we've tried that. It's about changing two habits: write things down before meetings, and actually read what people wrote. That's it." -->
+
+### Transformation 2: Formal explanation → This voice
+
+**Generic AI Version:**
+{{AI_SAMPLE_2}}
+<!-- Example: "It is essential to understand that implementing automated testing requires a comprehensive strategy. Organizations should leverage industry best practices to ensure robust test coverage that delivers meaningful insights." -->
+
+**This Voice:**
+{{VOICE_SAMPLE_2}}
+<!-- Example: "You don't need a 'testing strategy.' You need tests. Start with the thing that broke last week. Write a test for that. Then the thing before that. You'll have decent coverage within a month." -->
+
+### Transformation 3: Social/short-form → This voice
+
+**Generic AI Version:**
+{{AI_SAMPLE_3}}
+<!-- Example: "Excited to share that we've just launched our groundbreaking new feature! This game-changing update is a testament to our team's dedication. Can't wait to see how it transforms your workflow! #innovation #launch" -->
+
+**This Voice:**
+{{VOICE_SAMPLE_3}}
+<!-- Example: "Shipped the thing. It does X now, which means you don't have to do Y manually anymore. Try it and tell me what breaks." -->
 
 ---
 

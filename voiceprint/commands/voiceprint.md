@@ -1,25 +1,53 @@
 ---
 name: voiceprint
 description: Build a voice profile from your writing samples and generate a personalized writer skill
-argument-hint: "[path/to/writer-skill] — omit to create new, provide path to refine existing"
+argument-hint: "generate | refine <path> | update <path>"
 ---
 
 # /voiceprint
 
-This command has two modes based on arguments:
+## Mode Requirement
 
-## Route: Refine an existing writer skill
+This command requires execute mode. If plan mode is currently active, exit plan mode before proceeding. Use the ExitPlanMode tool, then continue with the command.
 
-If `$ARGUMENTS` is provided and resolves to a directory path containing both `SKILL.md` and `voice-profile.md`, enter refine mode.
+## Subcommand Routing
 
-Use skill: voiceprint/refine
+Route based on the first word of `$ARGUMENTS`:
 
-The user wants to refine an existing writer skill at the path they provided. Follow the refine workflow defined in the skill, passing the directory path as the target.
+### Route: `generate`
 
-## Route: Create a new voice profile (default)
-
-If `$ARGUMENTS` is empty, or does not point to a valid writer skill directory, enter create mode.
+If the first word of `$ARGUMENTS` is `generate`, create a new voice profile.
 
 Use skill: voiceprint
 
-The user wants to create a voice profile. Follow the full 6-phase workflow defined in the skill, starting with Phase 1: Introduction & Setup.
+Follow the full workflow defined in the skill, starting with Phase 1: Introduction & Setup.
+
+### Route: `refine`
+
+If the first word of `$ARGUMENTS` is `refine`, refine an existing writer skill.
+
+Use skill: voiceprint/refine
+
+The remaining arguments after `refine` should be a directory path containing both `SKILL.md` and `voice-profile.md`. Pass this path as the target directory.
+
+### Route: `update`
+
+If the first word of `$ARGUMENTS` is `update`, update an existing writer skill with the latest voiceprint features.
+
+Use skill: voiceprint/update
+
+The remaining arguments after `update` should be a directory path containing both `SKILL.md` and `voice-profile.md`. Pass this path as the target directory.
+
+### Route: No arguments or unrecognized
+
+If `$ARGUMENTS` is empty or the first word doesn't match any subcommand above, display available subcommands:
+
+> **Voiceprint** — create and manage personalized voice profiles.
+>
+> Available commands:
+>
+> - `/voiceprint generate` — Create a new voice profile from writing samples (~15 min)
+> - `/voiceprint refine <path>` — Refine an existing writer skill at the given path
+> - `/voiceprint update <path>` — Update an existing skill with the latest voiceprint features
+>
+> Example: `/voiceprint generate`
