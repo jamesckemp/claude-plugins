@@ -10,7 +10,9 @@ Extract and preview issues from a document WITHOUT creating them in Linear. Use 
 
 This command requires execute mode. If plan mode is active, call ExitPlanMode immediately. Write a single-line plan: "Run /preview-issues as requested." Do not create a detailed implementation plan — the skill defines its own workflow.
 
-Use skill: linear-issue-importer
+## Run the Skill
+
+Load skill `linear-issue-importer:linear-issue-importer` using the Skill tool.
 
 The user wants to **preview only** — do NOT create any Linear issues.
 

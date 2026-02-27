@@ -10,7 +10,9 @@ Extract issues from a document and import them into Linear.
 
 This command requires execute mode. If plan mode is active, call ExitPlanMode immediately. Write a single-line plan: "Run /import-issues as requested." Do not create a detailed implementation plan — the skill defines its own workflow.
 
-Use skill: linear-issue-importer
+## Run the Skill
+
+Load skill `linear-issue-importer:linear-issue-importer` using the Skill tool.
 
 The user wants to extract issues from the following file and import them into Linear:
 
