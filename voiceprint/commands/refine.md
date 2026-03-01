@@ -13,4 +13,4 @@ The user wants to refine the writer skill at the following path:
 
 **Directory:** `$ARGUMENTS`
 
-Pass this path as the target directory containing both `SKILL.md` and `voice-profile.md`.
+Pass this path as the target directory containing `SKILL.md`.

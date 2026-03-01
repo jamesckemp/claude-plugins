@@ -358,7 +358,7 @@ Pass the following prompt to the Task tool, with the handoff document from Phase
 
 ---
 
-You are generating a voice profile and writer skill from collected writing samples and preferences. Your job is to analyze the data, then write two output files.
+You are generating a writer skill from collected writing samples and preferences. Your job is to analyze the data, then write one output file — a self-contained SKILL.md that includes the full voice profile.
 
 IMPORTANT: Work ONLY with the handoff data provided below. Do NOT search for, read, or reference any other files on the user's machine. All analysis must come from the writing samples and preferences in this document. The only files you should read are the three reference/template files listed below.
 
@@ -370,8 +370,7 @@ IMPORTANT: Work ONLY with the handoff data provided below. Do NOT search for, re
 
 Before starting analysis, read these files for context:
 - `{SKILL_DIR}/references/ai-tells.md` - AI pattern catalog for expanding rejections
-- `{SKILL_DIR}/assets/voice-profile-template.md` - Template for voice profile output
-- `{SKILL_DIR}/assets/writer-skill-template.md` - Template for writer skill output
+- `{SKILL_DIR}/assets/writer-skill-template.md` - Template for the merged writer skill output
 
 Where `{SKILL_DIR}` is the directory containing this skill (the voiceprint plugin directory).
 
@@ -416,26 +415,24 @@ Create synthesized examples of the user's voice applied to specific formats. The
 
 These synthesized exemplars go in the Platform Formats section of the writer skill.
 
-**Step 4: Generate Voice Profile**
+**Step 4: Generate Writer Skill**
 
-Use the template at `assets/voice-profile-template.md` as a structural guide. Replace all `{{PLACEHOLDER}}` values with analyzed data. Do NOT write a standalone voiceprint file — the voice profile will be bundled directly into the writer skill directory in Step 5.
-
-Include: quantitative metrics from Step 1, cross-reference notes from Step 2, full rejection list from Step 3, the selected exemplars from Step 3.5, the quick reference card summary table, and 3 sample transformations showing generic AI writing vs this user's voice (cover different content types: a generic opener, a formal explanation, and a social/short-form post).
-
-**Step 5: Generate Writer Skill**
-
-Use the template at `assets/writer-skill-template.md` as a structural guide. Create the directory `{OUTPUT_DIR}/{PROFILE_NAME}-writer/` containing:
-- `SKILL.md` - The complete writer skill with all `{{PLACEHOLDER}}` values filled in
-- `voice-profile.md` - The complete voice profile from Step 4
+Use the template at `assets/writer-skill-template.md` as a structural guide. Create the directory `{OUTPUT_DIR}/{PROFILE_NAME}-writer/` containing a single file:
+- `SKILL.md` - The complete, self-contained writer skill with all `{{PLACEHOLDER}}` values filled in
 
 The writer skill must:
+- Set the `voiceprint-version` frontmatter field to `"1.6.0"`
 - Start with the Core Instruction section including execute mode guidance
+- Include Quick Reference table with 10-dimension summary
 - Include Voice Exemplars filled with the selected samples from Step 3.5
+- Include the full Voice Profile section with Core Characteristics, Sentence Metrics, Punctuation Profile, Vocabulary, and Voice Detail
 - Include Voice Markers with Signature Moves (3-5 most distinctive patterns), Natural Expressions, Structural Preferences, and Rhythm guidance
 - Include Platform Formats with synthesized exemplars from Step 3.6
-- Include a compressed Avoid List (~25-30 highest-impact items as flat bullets)
+- Include 3 Sample Transformations showing generic AI writing vs this user's voice (cover different content types: a generic opener, a formal explanation, and a social/short-form post)
+- Include the full categorized Forbidden Patterns section with Rejected Phrases, Rejected Structures, and Additional Rejections
 - Include Internal Checks in prose format (no checkboxes, "silently verify" language)
-- Reference voice-profile.md for the complete forbidden patterns list
+
+This single file is self-contained — it works in any tool (Claude Code, Claude Desktop, etc.) without needing to read additional files.
 
 **IMPORTANT**: Do not use placeholder text in the output. Every `{{PLACEHOLDER}}` from the templates must be replaced with actual analyzed values or natural-language descriptions derived from the data.
 
@@ -443,11 +440,10 @@ The writer skill must:
 
 ### After the Sub-Agent Completes
 
-The sub-agent will write the output files directly. Verify they were created:
+The sub-agent will write the output file directly. Verify it was created:
 - `{OUTPUT_DIR}/{PROFILE_NAME}-writer/SKILL.md` should exist
-- `{OUTPUT_DIR}/{PROFILE_NAME}-writer/voice-profile.md` should exist
 
-If any files are missing, report the issue to the user rather than attempting to regenerate in the main context.
+If the file is missing, report the issue to the user rather than attempting to regenerate in the main context.
 
 ---
 
@@ -462,7 +458,7 @@ For each use case the user selected in Phase 1, generate one test piece using th
 - **Work communication** → Generate a short email or Slack message
 - **All of the above** → Generate one tweet AND one blog paragraph
 
-Read the generated SKILL.md and voice-profile.md before writing, and follow the skill's instructions exactly.
+Read the generated SKILL.md before writing, and follow the skill's instructions exactly.
 
 ### Step 2: Present and collect feedback
 
@@ -488,7 +484,7 @@ If the user provides feedback (selected "Close but needs tweaks" or "Not quite r
 1. Ask what specifically feels off (free text, not AskUserQuestion)
 2. Collect their specific feedback (e.g., "too formal", "I'd never say 'fascinating'", "way too long for a tweet")
 3. Apply the feedback to the generated files:
-   - Add rejected phrases to the Avoid List in SKILL.md and Forbidden Patterns in voice-profile.md
+   - Add rejected phrases to the Forbidden Patterns section in SKILL.md
    - Adjust voice markers, tone descriptions, or platform constraints as needed
    - Update exemplars if the feedback reveals a better way to represent their voice
 4. Re-generate a revised version of the same content type incorporating the feedback
@@ -504,8 +500,9 @@ Once the user confirms satisfaction with all test pieces (or says they're good e
 
 > Your voice profile is ready. Here's what was created:
 >
-> 1. **`{OUTPUT_DIR}/{PROFILE_NAME}-writer/SKILL.md`** - A writer skill you can use in any Claude session
-> 2. **`{OUTPUT_DIR}/{PROFILE_NAME}-writer/voice-profile.md`** - Your complete voice analysis (referenced by the skill)
+> **`{OUTPUT_DIR}/{PROFILE_NAME}-writer/SKILL.md`** - A self-contained writer skill with your complete voice profile built in
+>
+> This single file works everywhere — Claude Code, Claude Desktop, or any tool that supports SKILL.md files. No additional files needed.
 >
 > To use the writer skill, add `{OUTPUT_DIR}/{PROFILE_NAME}-writer/` as a skill directory in your Claude Code project, or reference the SKILL.md directly when asking Claude to write something.
 >
@@ -525,5 +522,4 @@ Once the user confirms satisfaction with all test pieces (or says they're good e
 
 - `references/question-bank.md` - Full question text, options, and analysis notes for each question
 - `references/ai-tells.md` - Comprehensive catalog of AI writing patterns to detect and avoid
-- `assets/voice-profile-template.md` - Template for the generated voice profile document
-- `assets/writer-skill-template.md` - Template for the generated writer skill
+- `assets/writer-skill-template.md` - Template for the generated writer skill (merged single-file format)
