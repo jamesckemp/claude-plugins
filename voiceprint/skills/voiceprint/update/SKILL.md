@@ -48,26 +48,13 @@ Then stop.
 
 ### Step 2: Identify current version
 
-Check the `voiceprint-version` frontmatter field in SKILL.md first. If present, use it directly.
+Read `references/version-changelog.md` from the voiceprint skill directory and follow the **Version Detection** decision tree to determine the format status.
 
-If the field is missing, fall back to structural fingerprinting:
-
-**v1.2.0–1.5.x** (two files, current structure):
-- Both `SKILL.md` and `voice-profile.md` exist
-- SKILL.md has "Core Instruction" + "Voice Exemplars" sections
-- SKILL.md has flat "Avoid List" section
-- No `voiceprint-version` field in frontmatter
-
-**Pre-1.2.0** (two files, old structure):
-- Both files exist
-- SKILL.md has "Voice Quick Reference" or "Red Flags Checklist"
-- No "Core Instruction" or "Voice Exemplars" sections
-
-Store the detected version as `CURRENT_VERSION`.
+Store the detection result as `CURRENT_VERSION`.
 
 ### Step 3: Check if already current
 
-If `voiceprint-version` is `"1.6.0"` or later:
+Compare `CURRENT_VERSION` against the **Current Version** listed in the changelog. If the skill is already current:
 
 > Your writer skill is already using the latest voiceprint format (v1.6.0). No structural updates needed.
 >
@@ -349,3 +336,4 @@ Present a summary of all changes:
 - `assets/writer-skill-template.md` - Current merged template structure
 - `assets/voice-profile-template.md` - Legacy template (for understanding old two-file structure)
 - `references/ai-tells.md` - Latest AI pattern catalog for forbidden pattern updates
+- `references/version-changelog.md` - Version detection and migration requirements
