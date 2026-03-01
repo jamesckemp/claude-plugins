@@ -18,6 +18,12 @@ If plan mode is active, exit it now using ExitPlanMode before starting this work
 
 - **Target directory**: The exact path shown after "The target writer skill directory is:" in the command output above. This directory must contain `SKILL.md`.
 
+## Reference Files
+
+These paths are resolved automatically — read them directly, do not search or glob:
+
+- **AI tells catalog**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/ai-tells.md`
+
 ## Workflow Overview
 
 ```
@@ -72,7 +78,7 @@ Ask (free text, not AskUserQuestion):
 
 > What patterns have you noticed that don't sound like you? Give me examples — specific phrases, sentence structures, or general categories. If you've seen them in content generated with your skill, paste an example.
 
-After they respond, read `references/ai-tells.md` from the voiceprint skill directory to check if the pattern falls into an existing category. If it does, offer to add the full category:
+After they respond, read the AI tells catalog listed in Reference Files above to check if the pattern falls into an existing category. If it does, offer to add the full category:
 
 Use `AskUserQuestion`:
 - **Question**: "That falls under '{CATEGORY_NAME}' in the AI tells catalog. Want me to add the full category or just the specific phrases you mentioned?"
@@ -160,9 +166,9 @@ The SKILL.md contains these sections that may need editing:
 
 ### Applying Category Expansions
 
-When adding a forbidden pattern category from `ai-tells.md`:
+When adding a forbidden pattern category from the AI tells catalog:
 
-1. Read `references/ai-tells.md` from the voiceprint skill directory
+1. Read the AI tells catalog listed in Reference Files above
 2. Find the matching category
 3. Add items to the appropriate Forbidden Patterns subsection in SKILL.md
 
@@ -241,4 +247,4 @@ Present a clear summary:
 
 ## References
 
-- `references/ai-tells.md` - AI pattern catalog for category expansion (read from the voiceprint skill directory, not the target writer skill directory)
+- AI tells catalog — see resolved path in Reference Files above

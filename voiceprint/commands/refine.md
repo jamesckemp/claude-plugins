@@ -19,7 +19,7 @@ Before loading the refine skill, verify the target writer skill is on the curren
    > I couldn't find a writer skill at that path. I need `SKILL.md` in the directory. Check the path and try again.
    Then stop — do not load the refine skill.
 
-2. **Read the version changelog** — Read `references/version-changelog.md` from the voiceprint skill directory (the directory containing this command, not the target directory).
+2. **Read the version changelog** — Read `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/version-changelog.md`.
 
 3. **Follow the Version Detection decision tree** in the changelog to determine the format status, then consult the **Quick Decision Table**:
 

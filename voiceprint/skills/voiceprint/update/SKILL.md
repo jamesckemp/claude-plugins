@@ -18,6 +18,15 @@ If plan mode is active, exit it now using ExitPlanMode before starting this work
 
 - **Target directory**: The exact path shown after "The target writer skill directory is:" in the command output above. This directory must contain `SKILL.md` (and may also contain `voice-profile.md` from older versions).
 
+## Reference Files
+
+These paths are resolved automatically — read them directly, do not search or glob:
+
+- **Version changelog**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/version-changelog.md`
+- **AI tells catalog**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/ai-tells.md`
+- **Writer skill template**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/assets/writer-skill-template.md`
+- **Voice profile template (legacy)**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/assets/voice-profile-template.md`
+
 ## Workflow Overview
 
 ```
@@ -50,7 +59,7 @@ Then stop.
 
 ### Step 2: Identify current version
 
-Read `references/version-changelog.md` from the voiceprint skill directory and follow the **Version Detection** decision tree to determine the format status.
+Read the version changelog listed in Reference Files above and follow the **Version Detection** decision tree to determine the format status.
 
 Store the detection result as `CURRENT_VERSION`.
 
@@ -72,10 +81,10 @@ If they want to check patterns, jump to Phase 4 Step 2 (Forbidden patterns check
 
 ### Step 4: Read reference files
 
-Read these from the voiceprint skill directory:
-- `assets/writer-skill-template.md` - Current merged template
-- `assets/voice-profile-template.md` - Legacy template (for understanding old structure)
-- `references/ai-tells.md` - Latest AI pattern catalog
+Read these files from the paths listed in Reference Files above:
+- Writer skill template - Current merged template
+- Voice profile template (legacy) - For understanding old structure
+- AI tells catalog - Latest AI pattern catalog
 
 ---
 
@@ -187,7 +196,7 @@ If "Skip", warn that the two-file format won't work in Claude Desktop or single-
 
 ### Step 2: Forbidden patterns check
 
-Read `references/ai-tells.md` and compare against the existing forbidden patterns.
+Read the AI tells catalog listed in Reference Files above and compare against the existing forbidden patterns.
 
 If new patterns are found that aren't already in the profile:
 
@@ -253,7 +262,7 @@ If "Add something", ask for the new note in free text.
 
 ### Construct the merged SKILL.md
 
-Using the extracted data from Phase 3 and the user's choices from Phase 4, build the new SKILL.md following the `assets/writer-skill-template.md` structure:
+Using the extracted data from Phase 3 and the user's choices from Phase 4, build the new SKILL.md following the writer skill template structure (see Reference Files above):
 
 1. **Frontmatter**: Set `voiceprint-version: "1.6.0"`, preserve name and description
 2. **Core Instruction**: Preserve existing or use template default (remove any `voice-profile.md` references)
@@ -335,7 +344,4 @@ Present a summary of all changes:
 
 ## References
 
-- `assets/writer-skill-template.md` - Current merged template structure
-- `assets/voice-profile-template.md` - Legacy template (for understanding old two-file structure)
-- `references/ai-tells.md` - Latest AI pattern catalog for forbidden pattern updates
-- `references/version-changelog.md` - Version detection and migration requirements
+All reference files are listed with resolved paths in the Reference Files section above.

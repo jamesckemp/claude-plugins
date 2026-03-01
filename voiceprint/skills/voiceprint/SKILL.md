@@ -19,6 +19,14 @@ If plan mode is active, exit it now using ExitPlanMode before starting this work
 
 Most "voice" instructions are shallow ("write casually", "be professional"). Research in stylometry shows that function word frequencies, sentence length burstiness, punctuation habits, and transition patterns are the strongest discriminators of individual writing style. Writing samples outperform self-reported preferences, so this questionnaire leads with actual writing prompts before preference questions.
 
+## Reference Files
+
+These paths are resolved automatically — read them directly, do not search or glob:
+
+- **Question bank**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/question-bank.md`
+- **AI tells catalog**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/ai-tells.md`
+- **Writer skill template**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/assets/writer-skill-template.md`
+
 ## Workflow Overview
 
 ```
@@ -158,55 +166,55 @@ After collecting all 5 writing samples, assess the variety before moving on:
 
 Use `AskUserQuestion` for each of these. Present 3-4 options per question.
 
-Refer to `references/question-bank.md` for the full question text, option wording, and analysis notes for each question.
+Refer to the question bank listed in Reference Files above for the full question text, option wording, and analysis notes for each question.
 
 ### Question 6: Sentence Structure
 
 Show three versions of the same idea written with different sentence structures (simple/direct, compound/flowing, varied/mixed). Ask which feels closest to how they write.
 
-See `references/question-bank.md` → Question 6 for exact wording.
+See the question bank (Reference Files above) → Question 6 for exact wording.
 
 ### Question 7: Punctuation Habits
 
 Ask about their relationship with specific punctuation: em dashes, semicolons, parentheses, ellipses. This has high discriminating power.
 
-See `references/question-bank.md` → Question 7 for exact wording.
+See the question bank (Reference Files above) → Question 7 for exact wording.
 
 ### Question 8: Rhythm Preference
 
 Ask whether they tend toward short punchy sentences, longer flowing ones, or a deliberate mix. Burstiness (variation in sentence length) is the #2 discriminator after function words.
 
-See `references/question-bank.md` → Question 8 for exact wording.
+See the question bank (Reference Files above) → Question 8 for exact wording.
 
 ### Question 9: Transition Style
 
 How do they move between ideas? Formal connectors (however, moreover), casual bridges (so, anyway, thing is), questions, or direct jumps.
 
-See `references/question-bank.md` → Question 9 for exact wording.
+See the question bank (Reference Files above) → Question 9 for exact wording.
 
 ### Question 10: Formality & Word Choice
 
 Would they use words like "leverage", "utilize", "groundbreaking", "robust"? This calibrates vocabulary register.
 
-See `references/question-bank.md` → Question 10 for exact wording.
+See the question bank (Reference Files above) → Question 10 for exact wording.
 
 ### Question 11: Specificity Level
 
 Do they reach for concrete details and numbers, or stay conceptual? This determines detail density in generated content.
 
-See `references/question-bank.md` → Question 11 for exact wording.
+See the question bank (Reference Files above) → Question 11 for exact wording.
 
 ### Question 12: Personal Voice
 
 How much first-person ("I think", "I've found") do they use? Do they share personal context or keep it abstract?
 
-See `references/question-bank.md` → Question 12 for exact wording.
+See the question bank (Reference Files above) → Question 12 for exact wording.
 
 ### Question 13: Opening/Hook Style
 
 When starting a piece of writing, do they lead with a story, a question, a direct statement, or an observation?
 
-See `references/question-bank.md` → Question 13 for exact wording.
+See the question bank (Reference Files above) → Question 13 for exact wording.
 
 ---
 
@@ -214,7 +222,7 @@ See `references/question-bank.md` → Question 13 for exact wording.
 
 Critical for avoiding AI tells. Use `AskUserQuestion` for rating, plus one final writing sample.
 
-Refer to `references/ai-tells.md` for the comprehensive catalog of AI patterns.
+Refer to the AI tells catalog listed in Reference Files above for the comprehensive catalog of AI patterns.
 
 ### Question 14: Rate AI Phrases
 
@@ -222,7 +230,7 @@ Present 8-10 common AI phrases and ask the user to select all that would feel wr
 
 Use `AskUserQuestion` with **multiSelect: true**:
 - **Question**: "Which of these phrases would feel wrong or unnatural if they appeared in your writing? Select all that apply."
-- **Options** (pick from `references/ai-tells.md` → Common AI Phrases):
+- **Options** (pick from the AI tells catalog → Common AI Phrases):
   - "It's worth noting that..." (description: "Hedging/qualifying")
   - "In today's fast-paced world..." (description: "Generic opener")
   - "This serves as a testament to..." (description: "Overblown attribution")
@@ -234,7 +242,7 @@ After their selections, note which categories of AI language they reject most st
 
 Use `AskUserQuestion` with **multiSelect: true**:
 - **Question**: "Which of these writing patterns feel artificial or forced to you? Select all that apply."
-- **Options** (from `references/ai-tells.md` → Structural Patterns):
+- **Options** (from the AI tells catalog → Structural Patterns):
   - "Rule of three lists" (description: "Always grouping things in exactly three")
   - "Moreover/Furthermore/Additionally" (description: "Formal stacking connectors")
   - "Not only X, but also Y" (description: "Negative parallelism construction")
@@ -369,10 +377,8 @@ IMPORTANT: Work ONLY with the handoff data provided below. Do NOT search for, re
 **REFERENCE FILES TO READ:**
 
 Before starting analysis, read these files for context:
-- `{SKILL_DIR}/references/ai-tells.md` - AI pattern catalog for expanding rejections
-- `{SKILL_DIR}/assets/writer-skill-template.md` - Template for the merged writer skill output
-
-Where `{SKILL_DIR}` is the directory containing this skill (the voiceprint plugin directory).
+- `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/ai-tells.md` - AI pattern catalog for expanding rejections
+- `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/assets/writer-skill-template.md` - Template for the merged writer skill output
 
 **ANALYSIS STEPS:**
 
@@ -392,7 +398,7 @@ Compare observed patterns in writing samples against stated preferences. Where t
 
 **Step 3: Build Rejection List**
 
-From Pattern Rejections data, compile: explicitly rejected phrases, rejected structural patterns, and full category expansions from `ai-tells.md` (e.g., if they rejected "In today's fast-paced world", also flag all similar generic openers from that category).
+From Pattern Rejections data, compile: explicitly rejected phrases, rejected structural patterns, and full category expansions from the AI tells catalog (e.g., if they rejected "In today's fast-paced world", also flag all similar generic openers from that category).
 
 **Step 3.5: Select Voice Exemplars**
 
@@ -417,7 +423,7 @@ These synthesized exemplars go in the Platform Formats section of the writer ski
 
 **Step 4: Generate Writer Skill**
 
-Use the template at `assets/writer-skill-template.md` as a structural guide. Create the directory `{OUTPUT_DIR}/{PROFILE_NAME}-writer/` containing a single file:
+Use the writer skill template (see REFERENCE FILES above) as a structural guide. Create the directory `{OUTPUT_DIR}/{PROFILE_NAME}-writer/` containing a single file:
 - `SKILL.md` - The complete, self-contained writer skill with all `{{PLACEHOLDER}}` values filled in
 
 The writer skill must:
@@ -520,6 +526,4 @@ Once the user confirms satisfaction with all test pieces (or says they're good e
 
 ## References
 
-- `references/question-bank.md` - Full question text, options, and analysis notes for each question
-- `references/ai-tells.md` - Comprehensive catalog of AI writing patterns to detect and avoid
-- `assets/writer-skill-template.md` - Template for the generated writer skill (merged single-file format)
+All reference files are listed with resolved paths in the Reference Files section above.
