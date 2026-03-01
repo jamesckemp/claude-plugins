@@ -11,6 +11,15 @@ Update an existing writer skill with the latest voiceprint features and template
 
 This command requires execute mode. If plan mode is currently active, exit plan mode before proceeding. Use the ExitPlanMode tool, then continue with the command.
 
+## Reference Files
+
+These paths are resolved — read them directly, do not search or glob:
+
+- **Version changelog**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/version-changelog.md`
+- **AI tells catalog**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/ai-tells.md`
+- **Writer skill template**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/assets/writer-skill-template.md`
+- **Voice profile template (legacy)**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/assets/voice-profile-template.md`
+
 ## Workflow
 
 Load skill `voiceprint:update` using the Skill tool.

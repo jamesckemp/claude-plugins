@@ -20,9 +20,7 @@ If plan mode is active, exit it now using ExitPlanMode before starting this work
 
 ## Reference Files
 
-These paths are resolved automatically — read them directly, do not search or glob:
-
-- **AI tells catalog**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/ai-tells.md`
+All reference file paths are resolved in the `/refine` command output above. Use those exact paths — do not search or glob.
 
 ## Workflow Overview
 

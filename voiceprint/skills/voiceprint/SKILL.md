@@ -21,11 +21,7 @@ Most "voice" instructions are shallow ("write casually", "be professional"). Res
 
 ## Reference Files
 
-These paths are resolved automatically — read them directly, do not search or glob:
-
-- **Question bank**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/question-bank.md`
-- **AI tells catalog**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/ai-tells.md`
-- **Writer skill template**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/assets/writer-skill-template.md`
+All reference file paths are resolved in the `/generate` command output above. Use those exact paths — do not search or glob.
 
 ## Workflow Overview
 
@@ -376,9 +372,9 @@ IMPORTANT: Work ONLY with the handoff data provided below. Do NOT search for, re
 
 **REFERENCE FILES TO READ:**
 
-Before starting analysis, read these files for context:
-- `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/ai-tells.md` - AI pattern catalog for expanding rejections
-- `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/assets/writer-skill-template.md` - Template for the merged writer skill output
+Before starting analysis, read these files for context (insert the resolved paths from the command's Reference Files above):
+- AI tells catalog — AI pattern catalog for expanding rejections
+- Writer skill template — Template for the merged writer skill output
 
 **ANALYSIS STEPS:**
 

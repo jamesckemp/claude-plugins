@@ -20,12 +20,7 @@ If plan mode is active, exit it now using ExitPlanMode before starting this work
 
 ## Reference Files
 
-These paths are resolved automatically — read them directly, do not search or glob:
-
-- **Version changelog**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/version-changelog.md`
-- **AI tells catalog**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/references/ai-tells.md`
-- **Writer skill template**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/assets/writer-skill-template.md`
-- **Voice profile template (legacy)**: `!`echo ${CLAUDE_PLUGIN_ROOT}`/skills/voiceprint/assets/voice-profile-template.md`
+All reference file paths are resolved in the `/update` command output above. Use those exact paths — do not search or glob.
 
 ## Workflow Overview
 
