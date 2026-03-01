@@ -15,8 +15,8 @@ This command requires execute mode. If plan mode is currently active, exit plan 
 
 Load skill `voiceprint:update` using the Skill tool.
 
-The user wants to update the writer skill at the following path:
+The target writer skill directory is:
 
-**Directory:** `$ARGUMENTS`
+**`$ARGUMENTS`**
 
-Pass this path as the target directory containing `SKILL.md` (and optionally `voice-profile.md` from older versions that will be merged).
+Do NOT search, glob, or attempt to locate the writer skill automatically — the path above has already been validated. Pass it directly as the target directory containing `SKILL.md` (and optionally `voice-profile.md` from older versions that will be merged).

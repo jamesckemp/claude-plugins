@@ -16,7 +16,7 @@ If plan mode is active, exit it now using ExitPlanMode before starting this work
 
 ## Inputs
 
-- **Target directory**: The path provided by the user (via `$ARGUMENTS` from the command). This directory must contain `SKILL.md`.
+- **Target directory**: The exact path shown after "The target writer skill directory is:" in the command output above. This directory must contain `SKILL.md`.
 
 ## Workflow Overview
 
@@ -33,6 +33,8 @@ Phase 5: Summary              (~30s)  → List changes made
 ## Phase 1: Load & Check
 
 ### Step 1: Read the target skill
+
+Do NOT search, glob, or look up the writer skill by name — use the provided path directly.
 
 Read from the provided directory path silently — do NOT display a summary:
 - `{TARGET_DIR}/SKILL.md` - The writer skill

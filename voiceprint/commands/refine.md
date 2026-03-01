@@ -35,8 +35,8 @@ Before loading the refine skill, verify the target writer skill is on the curren
 
 Load skill `voiceprint:refine` using the Skill tool.
 
-The user wants to refine the writer skill at the following path:
+The target writer skill directory is:
 
-**Directory:** `$ARGUMENTS`
+**`$ARGUMENTS`**
 
-Pass this path as the target directory containing `SKILL.md`.
+Do NOT search, glob, or attempt to locate the writer skill automatically — the path above has already been validated. Pass it directly as the target directory containing `SKILL.md`.

@@ -16,7 +16,7 @@ If plan mode is active, exit it now using ExitPlanMode before starting this work
 
 ## Inputs
 
-- **Target directory**: The path provided by the user (via `$ARGUMENTS` from the command). This directory must contain `SKILL.md` (and may also contain `voice-profile.md` from older versions).
+- **Target directory**: The exact path shown after "The target writer skill directory is:" in the command output above. This directory must contain `SKILL.md` (and may also contain `voice-profile.md` from older versions).
 
 ## Workflow Overview
 
@@ -35,6 +35,8 @@ Phase 7: Report                (~30s)  → Summary of what changed
 ## Phase 1: Read & Detect
 
 ### Step 1: Read the target files
+
+Do NOT search, glob, or look up the writer skill by name — use the provided path directly.
 
 Read from the provided directory path:
 - `{TARGET_DIR}/SKILL.md` - The writer skill (required)
