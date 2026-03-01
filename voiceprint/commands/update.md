@@ -7,6 +7,12 @@ argument-hint: "<path to writer skill directory>"
 
 Update an existing writer skill with the latest voiceprint features and template improvements.
 
+## Mode Requirement
+
+This command requires execute mode. If plan mode is currently active, exit plan mode before proceeding. Use the ExitPlanMode tool, then continue with the command.
+
+## Workflow
+
 Load skill `voiceprint:update` using the Skill tool.
 
 The user wants to update the writer skill at the following path:
